@@ -1,0 +1,9 @@
+{
+  "name": "happymmall-admin",
+  "version": "1.0.0",
+  "description": "happymmall后台管理系统",
+  "main": "index.js",
+  "repository": "git@github.com:KallyShao/happymmall-admin.git",
+  "author": "KallyShao <188963758@qq.com>",
+  "license": "MIT"
+}
