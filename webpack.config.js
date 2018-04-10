@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2018-03-24 15:27:37
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-03-24 19:39:41
+ * @Last Modified time: 2018-04-10 15:53:21
  */
 
 const path = require('path');
@@ -21,15 +21,15 @@ module.exports = {
     },
     module: {
         rules: [{
-                test: /\.jsx$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react'] //表示自动根据环境来打包，如浏览器环境或node环境
-                    }
+            test: /\.jsx$/,
+            exclude: /(node_modules)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: ['env', 'react'] //表示自动根据环境来打包，如浏览器环境或node环境
                 }
-            },
+            }
+        },
             //css文件处理
             {
                 test: /\.css$/,
@@ -86,7 +86,7 @@ module.exports = {
         })
     ],
     devServer: {
-        // contentBase: './dist'
+        // contentBase: './dist',
         port: 8085
     }
 };
