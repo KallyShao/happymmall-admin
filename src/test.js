@@ -31,6 +31,11 @@ class A extends React.Component{
 							<div>当前组件是带参数的A， 参数是： {route.match.params.id}</div>
 						);
 					}} />
+					<Route path={`${this.props.match.path}/:sub`} render={(route) => {
+						return (
+							<div>当前组件是带参数的A， 参数是： {route.match.params.id}</div>
+						);
+					}} />
 				</Switch>
 			</div>);
 	}
@@ -55,8 +60,11 @@ class Wrapper extends React.Component{
 				<Link to="/a/333">带参数的组件A</Link>
 				<br />
 				<Link to="/b">跳到B</Link>
+				<br/>
+				<Link to="/a/sub">/a/sub</Link>
 				{this.props.children}
-			</div>);
+			</div>
+		);
 	}
 }
 
