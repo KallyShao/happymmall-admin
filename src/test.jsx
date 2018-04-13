@@ -1,20 +1,47 @@
-/*
- * @Author: Administrator
- * @Date:   2018-03-24 15:29:18
- * @Last Modified by:   Administrator
- * @Last Modified time: 2018-03-24 16:10:09
- */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {HashRouter as Router, Route} from 'react-router-dom';
 
-import './css/index.css';
 import 'font-awesome/css/font-awesome.min.css';
+import './index.scss';
+
+class A extends React.Component{
+    constructor(){
+        super();
+    }
+    render(){
+        return <div>Component A</div>
+    }
+}
+
+class B extends React.Component{
+    constructor(){
+        super();
+    }
+    render(){
+        return <div>Component B</div>
+    }
+}
+
+class Container extends React.Component{
+    constructor(){
+        super();
+    }
+    render(){
+        return (
+            <div>
+                {this.props.children}
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(
-    <div>
-  <h1>Hello, world and kally...</h1>
-  <i className="fa fa-address-book"></i>
-    </div>,
-  document.getElementById('app')
+    <Router>
+        <Container>
+            <A></A>
+            <B></B>
+        </Container>
+    </Router>,
+    document.getElementById('app')
 );
