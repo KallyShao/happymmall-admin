@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2018-03-24 15:27:37
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-04-10 15:53:21
+ * @Last Modified time: 2018-04-19 11:11:58
  */
 
 const path = require('path');
@@ -11,13 +11,20 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './src/test.jsx',
+    entry: './src/app.jsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
         //resolve用来解析一个路径，也就是通过webpack打包的文件最后要放的位置。
+        //__dirname指的是项目根目录，也就是webpack.config.js所在目录
         //第一个参数是致当前目录，第二个'dist'相当于当前目录下的dist文件夹
         publicPath: '/dist/', //引用资源的路径，比如js的引用目录变成/dist/js/xxx.js
-        filename: 'js/test.bundle.js'
+        filename: 'js/app.js'
+    },
+    resolve: {
+        alias: {
+            page: path.resolve(__dirname, 'src/page'),
+            component: path.resolve(__dirname, 'src/component'),
+        }
     },
     module: {
         rules: [{
@@ -87,6 +94,9 @@ module.exports = {
     ],
     devServer: {
         // contentBase: './dist',
-        port: 8085
+        port: 8085,
+        historyApiFallback: {
+            index: '/dist/index.html'
+        }
     }
 };
