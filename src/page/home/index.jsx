@@ -11,7 +11,7 @@ import './index.css';
 class Home extends React.Component {
     render() {
         return (
-        	<div>
+        	<div id="page-wrapper">
 	        	Home
 	        	<button className="btn btn-primary">test</button>
 	        	<i className="fa fa-minus"></i>
