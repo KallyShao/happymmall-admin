@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-04-19 14:06:35
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-04-23 11:40:34
+* @Last Modified time: 2018-04-23 23:00:31
 */
 /*----------------------------------------------
 Author : www.webthemez.com
@@ -404,13 +404,14 @@ footer p {
 
 .navbar-brand b {
 	color: #2DAFCB;
+	margin-right: 5px;
 }
 
 .top-navbar .nav > li {
 	position: relative;
 	display: inline-block;
 	margin: 0px;
-	padding: 0px;
+	padding: 0px 10px;
 }
 
 .top-navbar .nav > li > a {
@@ -420,6 +421,11 @@ footer p {
 	color: #FFFFFF;
 	margin: 0px;
 }
+.top-navbar .nav > li > a > span{
+	color: #666;
+	margin-right: 5px;
+}
+
 
 .top-navbar .nav > li > a:hover, .top-navbar .nav > li > a:focus {
 	text-decoration: none;
@@ -430,13 +436,18 @@ footer p {
 .top-navbar .dropdown-menu {
 	min-width: 230px;
 	border-radius: 0 0 4px 4px;
+	margin-top: 0;
 }
-
+.top-navbar .nav > li:hover .dropdown-menu{
+	display: block;
+}
 .top-navbar .dropdown-menu > li > a:hover, .top-navbar .dropdown-menu > li > a:focus {
 	color: #225081;
 	background: none;
 }
-
+.dropdown-menu>li>a{
+	cursor: pointer;
+}
 .dropdown-tasks {
 	width: 255px;
 }
@@ -591,18 +602,22 @@ ul.nav.nav-second-level.collapse.in {
 ------------------------------------------------*/
  
 @media(max-width:768px) {
-	#page-wrapper {
-		margin: 0 0 0 260px;
-		padding: 15px 30px;
+	.top-navbar{
+		position: relative;
 	}
-
+	.top-navbar .navbar-brand{
+		width: 100%;
+	}
 	.navbar-side {
 		z-index: 1;
-		width: 260px;
+		position: relative;
+		top: 0;
+		width: 100%;
 	}
-
-	.navbar {
-		border-radius: 0px;
+	#page-wrapper {
+		margin: 0;
+		padding: 15px 30px;
+		top: 0;
 	}
 }
 
