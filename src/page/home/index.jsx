@@ -8,13 +8,18 @@
 import React from 'react';
 import './index.css';
 
+import CommonTitle from 'component/common-title/index.jsx';
+
 class Home extends React.Component {
     render() {
         return (
         	<div id="page-wrapper">
-	        	Home
-	        	<button className="btn btn-primary">test</button>
-	        	<i className="fa fa-minus"></i>
+                <CommonTitle title="首页" />
+                <div className="row">
+                    <div className="col-md-12">
+                        body content
+                    </div>
+                </div>
         	</div>
         );
     }

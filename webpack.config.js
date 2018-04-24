@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2018-03-24 15:27:37
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-04-19 11:11:58
+ * @Last Modified time: 2018-04-24 22:26:07
  */
 
 const path = require('path');
@@ -24,19 +24,21 @@ module.exports = {
         alias: {
             page: path.resolve(__dirname, 'src/page'),
             component: path.resolve(__dirname, 'src/component'),
+            util: path.resolve(__dirname, 'src/util'),
+            service: path.resolve(__dirname, 'src/service')
         }
     },
     module: {
         rules: [{
-            test: /\.jsx$/,
-            exclude: /(node_modules)/,
-            use: {
-                loader: 'babel-loader',
-                options: {
-                    presets: ['env', 'react'] //表示自动根据环境来打包，如浏览器环境或node环境
+                test: /\.jsx$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env', 'react'] //表示自动根据环境来打包，如浏览器环境或node环境
+                    }
                 }
-            }
-        },
+            },
             //css文件处理
             {
                 test: /\.css$/,
@@ -82,7 +84,7 @@ module.exports = {
         //处理html文件
         new HtmlWebpackPlugin({
             template: './src/index.html',
-            title: 'index-99'
+            favicon: './favicon.ico'
         }),
         //独立css文件
         new ExtractTextPlugin("css/[name].css"),
@@ -97,6 +99,12 @@ module.exports = {
         port: 8085,
         historyApiFallback: {
             index: '/dist/index.html'
+        },
+        proxy: {
+            '/manage': {
+                target: 'http://admintest.happymmall.com',
+                changeOrigin: true //加了这个字段，请求就是从上面这个域名发出的，而不是从localhost发出
+            }
         }
     }
 };
