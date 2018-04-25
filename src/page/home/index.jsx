@@ -10,6 +10,25 @@ import './index.css';
 
 import CommonTitle from 'component/common-title/index.jsx';
 
+////////////////////////////////
+//test
+import CommentApp from '../../test/CommentApp.jsx';
+
+class User extends React.Component{
+    render(){
+        const {user} = this.props
+        return (
+            <div>
+                <ul>
+                    <li>姓名：{user.username}</li>
+                    <li>年龄：{user.age}</li>
+                    <li>性别：{user.gener}</li>
+                </ul>
+                <hr/>
+            </div>);
+    }
+}
+
 class Home extends React.Component {
     render() {
         return (
@@ -18,6 +37,7 @@ class Home extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         body content
+                        <CommentApp />
                     </div>
                 </div>
         	</div>
