@@ -8,8 +8,8 @@ import User from 'service/user-service.jsx';
 const _user = new User();
 
 class Login extends React.Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             username: '',
             password: '',
@@ -17,6 +17,9 @@ class Login extends React.Component{
         };
     }
 
+    componentWillMount(){
+        document.title = '登录 -- MMALL ADMIN';
+    }
     // //用户名发生改变
     // onUsernameChange(e){
     //     this.setState({
@@ -40,17 +43,28 @@ class Login extends React.Component{
     }
     //提交登录信息
     onSubmit(){
-        _user.login({
+        let userInfo = {
             username: this.state.username,
             password: this.state.password
-        })
-        .then((res) => {
-            // console.log(this.state.redirect);
-            //?????redirect取不到
-            this.props.history.push(this.state.redirect);
-        }, (errMsg) => {
-            _mm.errorTips(errMsg);
-        });
+        },
+        checkRes = _user.checkLoginInfo(userInfo);
+        if(checkRes.status){
+            _user.login(userInfo)
+            .then((res) => {
+                _mm.setStorage('userInfo', res);
+                this.props.history.push(this.state.redirect);
+            }, (errMsg) => {
+                _mm.errorTips(errMsg);
+            });
+        }else{
+            _mm.errorTips(checkRes.msg);
+        }
+    }
+    //按回车键提交
+    onInputKeyup(e){
+        if(e.keyCode === 13){
+            this.onSubmit();
+        }
     }
     render(){
         return (
@@ -64,6 +78,7 @@ class Login extends React.Component{
                                         name="username"
                                         className="form-control" 
                                         placeholder="用户名"
+                                        onKeyUp = {e => this.onInputKeyup(e)}
                                         onChange = {e => this.onInputChange(e)}
                                 />
                             </div>
@@ -72,6 +87,7 @@ class Login extends React.Component{
                                         name="password"
                                         className="form-control" 
                                         placeholder="密码" 
+                                        onKeyUp = {e => this.onInputKeyup(e)}
                                         onChange = {e => this.onInputChange(e)}
                                 />
                             </div>
