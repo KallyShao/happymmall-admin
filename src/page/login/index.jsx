@@ -12,7 +12,8 @@ class Login extends React.Component{
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            redirect: _mm.getUrlParam('redirect') || '/'
         };
     }
 
@@ -44,9 +45,11 @@ class Login extends React.Component{
             password: this.state.password
         })
         .then((res) => {
-            console.log(res);
-        }, (err) => {
-
+            // console.log(this.state.redirect);
+            //?????redirect取不到
+            this.props.history.push(this.state.redirect);
+        }, (errMsg) => {
+            _mm.errorTips(errMsg);
         });
     }
     render(){

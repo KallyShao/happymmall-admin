@@ -30,5 +30,17 @@ class MUtil{
     doLogin(){
         window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);
     }
+    //取url参数
+    getUrlParam(name){
+        //xxx.com?param=123&param1=456
+        let queryStr = window.location.search.split('?')[1] || '',   //search取出的是包括?的后面的部分，再用?分割，取数组的第二个元素
+            reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
+            result = queryStr.match(reg);
+        return result ? decodeURIComponent(result[2]) : null;
+    }
+    //错误提示
+    errorTips(errMsg){
+        alert(errMsg || '好像哪里不对了~');
+    }
 }
 export default MUtil;
