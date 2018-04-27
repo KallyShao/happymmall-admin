@@ -2,7 +2,7 @@
  * @Author: Administrator
  * @Date:   2018-03-24 15:27:37
  * @Last Modified by:   Administrator
- * @Last Modified time: 2018-04-24 22:26:07
+ * @Last Modified time: 2018-04-27 21:49:52
  */
 
 const path = require('path');
@@ -104,6 +104,10 @@ module.exports = {
             '/manage': {
                 target: 'http://admintest.happymmall.com',
                 changeOrigin: true //加了这个字段，请求就是从上面这个域名发出的，而不是从localhost发出
+            },
+            '/user/logout.do': {
+                target: 'http://admintest.happymmall.com',
+                changeOrigin: true
             }
         }
     }

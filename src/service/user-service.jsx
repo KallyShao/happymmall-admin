@@ -10,6 +10,12 @@ class User{
             data: userInfo
         });
     }
+    logout(){
+        return _mm.request({
+            type: 'post',
+            url: '/user/logout.do'
+        });
+    }
     //表单验证
     checkLoginInfo(userInfo){
         let username = $.trim(userInfo.username),
