@@ -13,6 +13,7 @@ import CommonTitle from 'component/common-title/index.jsx';
 ////////////////////////////////
 //test
 // import CommentApp from '../../test/CommentApp.jsx';
+import Test from '../../test/Test.jsx';
 
 class User extends React.Component{
     render(){
@@ -37,6 +38,7 @@ class Home extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         body content
+                        <Test />
                     </div>
                 </div>
         	</div>
