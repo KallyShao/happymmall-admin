@@ -6,7 +6,7 @@ class MUtil{
                 url     : param.url      || '',
                 dataType: param.dataType || 'json',
                 data    : param.data     || null,
-                success(res){
+                success : res => {
                     //数据请求成功
                     if(res.status === 0){
                         typeof resolve === 'function' && resolve(res.data, res.msg);
@@ -19,7 +19,7 @@ class MUtil{
                         typeof reject === 'function' && reject(res.msg || res.data);    
                     }
                 },
-                error(err){
+                error  : err => {
                     //statusText是http请求出错时返回的与状态码对应的错误信息，是http请求error对象的一个属性
                     typeof reject === 'function' && reject(err.statusText);    
                 }
@@ -37,6 +37,10 @@ class MUtil{
             reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)'),
             result = queryStr.match(reg);
         return result ? decodeURIComponent(result[2]) : null;
+    }
+    //成功提示，之所以把alert封装起来，是为了便于以后做优化，如果有新的提示样式，统一在这里修改就行了
+    successTips(successMsg){
+        alert(successMsg || '操作成功！');
     }
     //错误提示
     errorTips(errMsg){
