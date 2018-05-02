@@ -19,7 +19,7 @@ const _user = new User();
 
 ////////////////////////////////
 //test
-import CommentApp from '../../test/CommentApp.jsx';
+// import CommentApp from '../../test/CommentApp.jsx';
 // import Test from '../../test/Test.jsx';
 
 
@@ -49,8 +49,9 @@ class Home extends React.Component {
     render() {
         return (
         	<div id="page-wrapper">
-            <CommentApp />
         {/*
+            <CommentApp />
+        */}
 
                 <CommonTitle title="首页" />
                 <div className="row">
@@ -82,8 +83,6 @@ class Home extends React.Component {
                         </Link>
                     </div>
                 </div>
-        */}
-
         	</div>
         );
     }

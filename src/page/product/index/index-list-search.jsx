@@ -50,7 +50,7 @@ class ListSearch extends React.Component {
                        <div className="form-group">
                            <input type="text" name="searchKeyword" className="form-control" placeholder="关键词"
                                   onChange = {(e) => this.onGetValueChange(e)}
-                                    onKeyUp = {(e) => this.onSearchKeywordKeyup(e)}
+                                  onKeyUp = {(e) => this.onSearchKeywordKeyup(e)}
                                   />
                        </div>
                        <button className="btn btn-primary" onClick = {(e) => this.onSearchSubmit(e)}>搜索</button>

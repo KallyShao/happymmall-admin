@@ -27,26 +27,36 @@ class ProductList extends React.Component{
     }
     //加载商品列表
     loadProductList(){
-        _product.getProductList(this.state.pageNum).then((res) => {
+        let listParam = {};
+        listParam.listType = this.state.listType;
+        listParam.pageNum = this.state.pageNum;
+
+        if(this.state.listType === 'search'){
+            listParam.searchType = this.state.searchType;
+            listParam.keyword    = this.state.searchKeyword;
+        }
+
+        _product.getProductList(listParam).then((res) => {
              this.setState(res);
              }, (errMsg) => {
+                this.setState({
+                    list: []
+                })
              _mm.errorTips(errMsg);
          });
     }
     //搜索
     onSearch(searchType, searchKeyword){
-        console.log(searchType, searchKeyword);
-
-        
-
-        _product.searchProduct({
+        // console.log(searchType, searchKeyword);
+        let listType = searchKeyword === '' ? 'list' : 'search';
+        this.setState({
+            listType:listType,
+            pageNum: 1,
             searchType: searchType,
             searchKeyword: searchKeyword
-        }).then((res) => {
+        }, () => {
             this.loadProductList();
-             }, (errMsg) => {
-             _mm.errorTips(errMsg);
-         });
+        });
     }
     //页码发生变化的时候,setState完了之后执行一个回调函数
     onPageNumChange(pageNum){
@@ -85,7 +95,14 @@ class ProductList extends React.Component{
         ];
         return (
             <div id="page-wrapper">
-                <CommonTitle title="商品列表" />
+                <CommonTitle title="商品列表">
+                    <div className="page-header-right">
+                        <Link to="/product/save" className="btn btn-primary">
+                            <i className="fa fa-plus"></i>
+                            <span>添加商品</span>
+                        </Link>
+                    </div>
+                </CommonTitle>
                 <ListSearch onSearch = {(searchType, searchKeyword) => {this.onSearch(searchType, searchKeyword)}} />
                 <TableList tableHeads={tableHeads}>
                     {

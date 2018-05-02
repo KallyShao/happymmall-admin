@@ -4,13 +4,21 @@ const _mm = new MUtil();
 class Product{
    
     //获取商品列表
-    getProductList(pageNum){
+    getProductList(listParam){
+        let url = '',
+            data = {};
+        if(listParam.listType           === 'list'){
+            url                         = '/manage/product/list.do';
+            data.pageNum                = listParam.pageNum;
+        }else if(listParam.listType     === 'search'){
+            url = '/manage/product/search.do';
+            data.pageNum                = listParam.pageNum;
+            data[listParam.searchType]  = listParam.keyword;
+        }
         return _mm.request({
             type: 'post',
-            url: '/manage/product/list.do',
-            data: {
-                pageNum: pageNum
-            }
+            url: url,
+            data: data
         })
     }
     //商品上下架
@@ -22,12 +30,12 @@ class Product{
         })
     }
     //商品搜索
-    searchProduct(searchInfo){
-        return _mm.request({
-            type: 'post',
-            url: '/manage/product/search.do',
-            data: searchInfo
-        })
-    }
+    // searchProduct(searchInfo){
+    //     return _mm.request({
+    //         type: 'post',
+    //         url: '/manage/product/search.do',
+    //         data: searchInfo
+    //     })
+    // }
 }
 export default Product;
