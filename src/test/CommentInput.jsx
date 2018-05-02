@@ -23,7 +23,33 @@ class CommentInput extends React.Component{
 			const {username, content} = this.state;
 			this.props.onSubmit({username, content});
 		}
+		let comments = [];
+		comments.push(comment);
 	}
+	componentWillMount(){
+		this._loadUsername();
+	}
+	_loadUsername(){
+		const username = localStorage.getItem('username');
+		if(username){
+			this.setState({
+				username: username
+			})
+		}
+	}
+	//让鼠标光标最初处于内容输入框内
+	componentDidMount(){
+		this.textarea.focus();
+	}
+	//保存用户名
+	_saveUsername(username){
+		localStorage.setItem('username', username);
+	}
+
+	handleUsernameBlur(e){
+		this._saveUsername(e.target.value);
+	}
+
 	render(){
 		return(
 			<div className='form-group comment-input'>
@@ -34,6 +60,7 @@ class CommentInput extends React.Component{
 		            		   className="form-control" 
 		            			value = {this.state.username} 
 		            			onChange = {this.changeUsername.bind(this)}
+		            			onBlur = {this.handleUsernameBlur.bind(this)}
 		            			/>
 		          	</div>
 		        </div>
@@ -43,6 +70,7 @@ class CommentInput extends React.Component{
 		            	<textarea className="form-control" 
 		            			rows="10" 
 		            			onChange = {this.changeContent.bind(this)}
+		            			ref = {(textarea) => this.textarea = textarea}
 		            			/>
 		          	</div>
 		        </div>

@@ -4,15 +4,26 @@ import './index.css';
 import CommentInput from './CommentInput.jsx';
 import CommentList from './CommentList.jsx';
 
-
-
 class CommentApp extends React.Component{
 	constructor(){
 		super();
 		this.state  = {
-			userList: []
+			userList: [],
+			comments: []
 		}
 	}
+
+	// _saveComments(comments){
+	// 	localStorage.setItem('comments', JSON.stringify(comments));
+	// }
+	// _loadComments(){
+	// 	let comments = localStorage.getItem('comments');
+	// 	if(comments){
+	// 		this.setState({
+	// 			comments
+	// 		});
+	// 	}
+	// }
 	handleSubmitComment(comment){
 		if(!comment) return;
 		if(!comment.username) return alert('请输入用户名！');
@@ -21,7 +32,6 @@ class CommentApp extends React.Component{
 		this.setState({
 			userList: this.state.userList
 		})
-		
 	}
 	render(){
 		const {userList} = this.state;

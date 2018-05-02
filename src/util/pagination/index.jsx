@@ -1,6 +1,6 @@
 import React from 'react';
 import RcPagination from 'rc-pagination';
-import 'rc-pagination/assets/index.css';
+import 'rc-pagination/dist/rc-pagination.css';
 
 //自己封装的通用分页组件
 class Pagination extends React.Component{
