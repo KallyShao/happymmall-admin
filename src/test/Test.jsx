@@ -19,8 +19,8 @@ class Son extends React.Component{
 	    return (
 	    	<div className="son">
 	    		<h2>React.js 小书</h2>
-	    	   <div>开源、免费、专业、简单</div>
-	    	   订阅：<input />
+	    	   	<div>开源、免费、专业、简单</div>
+	    	   	订阅：<input />
 	    	</div>
 	    )
 	  }
