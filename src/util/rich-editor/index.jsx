@@ -1,6 +1,7 @@
 import React from 'react';
 import Simditor from 'simditor';
 import 'simditor/styles/simditor.scss';
+import './index.scss';
 
 import MUtil from 'util/mm.jsx';
 const _mm = new MUtil();
@@ -16,6 +17,11 @@ class RichEditor extends React.Component {
     }
     componentDidMount(){
         this._loadEditor();
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.defaultDetail !== nextProps.defaultDetail){
+            this.simditor.setValue(nextProps.defaultDetail);
+        }
     }
     _loadEditor(){
         let ele = this.refs['textarea'];

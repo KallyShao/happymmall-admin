@@ -43,6 +43,7 @@ class ProductSave extends React.Component {
               url: res.imageHost + imgUri
             }
           });
+          res.defaultDetail = res.detail;
           this.setState(res);
         }, (errMsg) => {
           _mm.errorTips(errMsg);
@@ -109,6 +110,9 @@ class ProductSave extends React.Component {
         status      : this.state.status
       };
       let productCheckRes = _product.checkProduct(product);
+      if(this.state.id){
+        product.id = this.state.id;
+      }
       //表单验证成功
       if(productCheckRes.status){
         _product.saveProduct(product).then((res) => {
@@ -155,7 +159,7 @@ class ProductSave extends React.Component {
                             <label className="col-md-2 control-label">所属分类</label>
                             <CategorySelector onCateChange = {(categoryId, parentCateId) => this.handleCateSave(categoryId, parentCateId)}
                             categoryId = {this.state.categoryId}
-                            parentCategoryId = {this.state.parentCategoryId}
+                            parentCateId = {this.state.parentCateId}
                              />
                         {/*
                             这里用组件实现
@@ -224,6 +228,7 @@ class ProductSave extends React.Component {
                             <div className="col-md-10">
                                <RichEditor 
                                detail = {this.state.detail}
+                               defaultDetail = {this.state.defaultDetail}
                                onValueChange = {(value) => this.handleSimditorValueChange(value)} />
                             </div>
                         </div>

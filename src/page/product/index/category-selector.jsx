@@ -20,6 +20,30 @@ class CategorySelector extends React.Component {
     componentDidMount(){
         this._loadFirstCateList();
     }
+    componentWillReceiveProps(nextProps){ //这个方法在props变化时触发，nextProps是将要传进来的props
+        let cateIdChange = this.props.categoryId !== nextProps.categoryId, //判断当前props和将要传进来的props是否相同
+            parentCateIdChange = this.props.parentCateId !== nextProps.parentCateId;
+            //数据不变时不做处理
+            if(!cateIdChange && !parentCateIdChange){
+                return;
+            }
+        //假如只有一级品类
+        if(nextProps.parentCateId === 0){
+            this.setState({
+                firstCateId: nextProps.categoryId,
+                secondCateId: 0
+            })
+        }
+        //有2级品类
+        else{
+            this.setState({
+                firstCateId: nextProps.parentCateId,
+                secondCateId: nextProps.categoryId
+            }, () => {
+                parentCateIdChange && this._loadSecondCateList();
+            })
+        }
+    }
     //加载一级分类
     _loadFirstCateList(){
         _category.getCategoryList().then((res) => {
@@ -78,19 +102,25 @@ class CategorySelector extends React.Component {
         return (
             <div>
                 <div className="col-md-5">
-                    <select onChange={(e) => this.handleFirstCateChange(e)} className="form-control cate-select">
+                    <select onChange={(e) => this.handleFirstCateChange(e)} 
+                            className="form-control cate-select"
+                            value = {this.state.firstCateId}
+                            >
                         <option value="">请选择一级分类</option>
                         {
                             firstCateList.map((list, index) => <option value={list.id} key={index}>{list.name}</option>)
                         }
                     </select>
                     { this.state.secondCateList.length 
-                        ? (<select onChange={(e) => this.handleSecondCateChange(e)} className="form-control cate-select">
+                        ?   <select onChange={(e) => this.handleSecondCateChange(e)} 
+                                    className="form-control cate-select"
+                                    value = {this.state.secondCateId}
+                                    >
                             <option value="">请选择二级分类</option>
                             {
                                 secondCateList.map((list, index) => <option value={list.id} key={index}>{list.name}</option>)
                             }
-                        </select>)
+                        </select>
                         : null
                     }
                 </div>
