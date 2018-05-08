@@ -66,6 +66,9 @@ class CategorySelector extends React.Component {
     }
     //根据一级分类加载二级分类
     handleFirstCateChange(e){
+        if(this.props.readOnly){
+            return;
+        }
         let newValue = e.target.value || 0;
         this.setState({
             firstCateId: newValue,
@@ -77,6 +80,9 @@ class CategorySelector extends React.Component {
         });
     }
     handleSecondCateChange(e){
+        if(this.props.readOnly){
+            return;
+        }
         let newValue = e.target.value || 0;
         this.setState({
             secondCateId: newValue
@@ -105,6 +111,7 @@ class CategorySelector extends React.Component {
                     <select onChange={(e) => this.handleFirstCateChange(e)} 
                             className="form-control cate-select"
                             value = {this.state.firstCateId}
+                            readOnly = {this.props.readOnly}
                             >
                         <option value="">请选择一级分类</option>
                         {
@@ -115,6 +122,7 @@ class CategorySelector extends React.Component {
                         ?   <select onChange={(e) => this.handleSecondCateChange(e)} 
                                     className="form-control cate-select"
                                     value = {this.state.secondCateId}
+                                    readOnly = {this.props.readOnly}
                                     >
                             <option value="">请选择二级分类</option>
                             {

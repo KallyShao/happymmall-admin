@@ -131,7 +131,7 @@ class ProductSave extends React.Component {
         return (
             <div>
                 <div id="page-wrapper">
-                    <CommonTitle title="添加商品" />
+                    <CommonTitle title={this.state.id ? "编辑商品" : "添加商品"} />
                     <div className="form-horizontal">
                         <div className="form-group">
                             <label className="col-md-2 control-label">商品名称</label>
