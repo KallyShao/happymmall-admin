@@ -16,15 +16,17 @@ class CategoryList extends React.Component{
         super(props);
         this.state = {
             list : [],
-            parentCateId: this.props.match.params.categoryId || 0
+            parentCateId: this.props.match.params.cateId || 0
         };
     }
     componentDidMount(){
-        this.loadCateList();
+        this._loadCateList();
     }
-    loadCateList(parentCateId){
-       _category.getCategoryList(parentCateId).then((res) => {
-            this.setState(res);
+    _loadCateList(){
+       _category.getCategoryList(this.state.parentCateId).then((res) => {
+            this.setState({
+                list: res
+            });
         }, (errMsg) => {
             this.setState({
                 list: []
@@ -32,8 +34,20 @@ class CategoryList extends React.Component{
             _mm.errorTips(errMsg);
         });
     }
+    //更新品类名称
     handleUpdateName(categoryId, categoryName){
-
+        let newName = window.prompt('请输入新的品类名称', categoryName);
+        if(newName){
+            _category.updateCateName({
+                categoryId: categoryId,
+                categoryName: newName
+            }).then((res) => {
+                _mm.successTips(res);
+                this._loadCateList();
+            }, (errMsg) => {
+                _mm.errorTips(errMsg);
+            });
+        }
     }
     render(){
         let tableHeads = [
@@ -44,6 +58,11 @@ class CategoryList extends React.Component{
         return (
             <div id="page-wrapper">
                 <CommonTitle title="品类列表" />
+                <div className="row">
+                    <div className="col-md-12">
+                        <p>父品类ID：{this.state.parentCateId}</p>
+                    </div>
+                </div>
                 <TableList tableHeads = {tableHeads}>
                     {
                         this.state.list.map((cate, index) => {
@@ -53,7 +72,11 @@ class CategoryList extends React.Component{
                                         <td>{cate.name}</td>
                                         <td>
                                             <a className="oper" onClick = {(e) => this.handleUpdateName(cate.id, cate.name)}>修改名称</a>
-                                            <span>查看其子品类</span>
+                                            {
+                                                cate.id === 0
+                                                ? <Link to = {`/product-category/index/${cate.id}`}>查看子品类</Link>
+                                                : null
+                                            }
                                         </td>
                                     </tr>
                                 )

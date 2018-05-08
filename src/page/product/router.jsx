@@ -5,18 +5,20 @@ import {BrowserRouter as Router, Switch, Redirect, Route, Link} from 'react-rout
 import ProductList from 'page/product/index/index.jsx';
 import ProductSave from 'page/product/index/save.jsx';
 import ProductDetail from 'page/product/index/detail.jsx';
+import CategoryList from 'page/product/category/index.jsx';
 
 class ProductRouter extends React.Component {
     render() {
         return (
-            <Router>
-                <Switch>
-                   <Route path="/product/index" component={ProductList} />
-                   <Route path="/product/save/:proId?" component={ProductSave} />
-                   <Route path="/product/detail/:proId" component={ProductDetail} />
-                   <Redirect exact from="/product" to="/product/index" />
-                </Switch>
-            </Router>
+              <Switch>
+                 <Route path="/product/index" component={ProductList} />
+                 <Route path="/product/save/:proId?" component={ProductSave} />
+                 <Route path="/product/detail/:proId" component={ProductDetail} />
+                 <Route path="/product-category/index/:cateId?" component={CategoryList} />
+
+                 <Redirect exact from="/product" to="/product/index" />
+                 <Redirect exact from="/product-category" to="/product-category/index" />
+              </Switch>
         );
     }
 }
