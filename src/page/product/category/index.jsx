@@ -22,6 +22,19 @@ class CategoryList extends React.Component{
     componentDidMount(){
         this._loadCateList();
     }
+    //参数发生变化的时候state没有发生变化，所以列表不会重新加载。但是会触发组件更新，因此
+    componentDidUpdate(prevProps, prevState){
+        let oldPath = prevProps.location.pathname,
+            newPath = this.props.location.pathname,
+            newCateId = this.props.match.params.cateId || 0;
+        if(oldPath !== newPath){
+            this.setState({
+                parentCateId: newCateId
+            }, () => {
+                this._loadCateList();
+            })
+        }
+    }
     _loadCateList(){
        _category.getCategoryList(this.state.parentCateId).then((res) => {
             this.setState({
@@ -57,7 +70,14 @@ class CategoryList extends React.Component{
         ];
         return (
             <div id="page-wrapper">
-                <CommonTitle title="品类列表" />
+                <CommonTitle title="品类列表">
+                    <div className="page-header-right">
+                    <Link to="/product-category/add" className="btn btn-primary">
+                        <i className="fa fa-plus"></i>
+                        <span>添加品类</span>
+                    </Link>
+                    </div>
+                </CommonTitle>
                 <div className="row">
                     <div className="col-md-12">
                         <p>父品类ID：{this.state.parentCateId}</p>
@@ -73,7 +93,7 @@ class CategoryList extends React.Component{
                                         <td>
                                             <a className="oper" onClick = {(e) => this.handleUpdateName(cate.id, cate.name)}>修改名称</a>
                                             {
-                                                cate.id === 0
+                                                cate.parentId === 0
                                                 ? <Link to = {`/product-category/index/${cate.id}`}>查看子品类</Link>
                                                 : null
                                             }
