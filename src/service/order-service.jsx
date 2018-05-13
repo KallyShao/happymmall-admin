@@ -19,6 +19,14 @@ class Order{
             data: data
         })
     }
+    //获取订单详情
+    getOrderDetail(orderNo){
+        return _mm.request({
+            type: 'post',
+            url: '/manage/order/detail.do',
+            data: orderNo
+        })
+    }
  
 }
 export default Order;

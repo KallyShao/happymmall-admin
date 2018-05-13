@@ -43,8 +43,7 @@ class ListSearch extends React.Component {
                    <div className="form-inline">
                        <div className="form-group">
                            <select className="form-control" name="searchType" onChange = {(e) => this.onGetValueChange(e)}>
-                               <option value="productId">按商品ID查询</option>
-                               <option value="productName">按商品名称查询</option>
+                               <option value="orderNo">按订单号查询</option>
                            </select>
                        </div>
                        <div className="form-group">
