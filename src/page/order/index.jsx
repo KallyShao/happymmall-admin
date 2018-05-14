@@ -47,7 +47,7 @@ class OrderList extends React.Component{
     }
     //搜索
     handleSearch(orderNo){
-        let listType = searchKeyword === '' ? 'list' : 'search';
+        let listType = orderNo === '' ? 'list' : 'search';
         this.setState({
             listType:listType,
             pageNum: 1,
@@ -74,7 +74,9 @@ class OrderList extends React.Component{
                 {
                         this.state.list.map((order, index) => {
                                 return  <tr key={index} className="order-item">
-                                        <td>{order.orderNo}</td>
+                                        <td>
+                                            <Link className="oper" to={ `/order/detail/${order.orderNo}` }>{order.orderNo}</Link>
+                                        </td>
                                         <td>{order.receiverName}</td>
                                         <td>{order.statusDesc}</td>
                                         <td>{order.payment}</td>

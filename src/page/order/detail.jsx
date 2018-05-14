@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CommonTitle from 'component/common-title/index.jsx';
+import TableList from 'util/table-list/index.jsx';
 
 import MUtil from 'util/mm.jsx';
 const _mm = new MUtil();
@@ -13,7 +14,8 @@ class OrderDetail extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-          orderNo: this.props.match.params.orderNo
+          orderNo: this.props.match.params.orderNo,
+          orderInfo: {}  //存放订单相关的信息
         }
     }
     componentDidMount(){
@@ -24,18 +26,75 @@ class OrderDetail extends React.Component{
         _order.getOrderDetail({
           orderNo: this.state.orderNo
         }).then((res) => {
-             console.log(res);
+               this.setState({
+                orderInfo: res
+               })
              }, (errMsg) => {
              _mm.errorTips(errMsg);
          });
     }
 
-
     render(){
+        let receiverInfo = this.state.orderInfo.shippingVo || {};
+        console.log(receiverInfo);
         return (
             <div id="page-wrapper">
                 <CommonTitle title="订单详情" />
-               
+                <div className="row">
+                  <div className="form-wrap col-md-12">
+                    <div className="form-horizontal">
+                      <div className="form-group">
+                        <label htmlFor="name" className="col-md-2 control-label">订单号：</label>
+                        <div className="col-md-5">
+                          <p type="text" className="form-control-static">{this.state.orderInfo.orderNo}</p>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="subtitle" className="col-md-2 control-label">创建时间：</label>
+                        <div className="col-md-5">
+                          <p type="text" className="form-control-static">{this.state.orderInfo.createTime}</p>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="subtitle" className="col-md-2 control-label">收件人：</label>
+                        <div className="col-md-5">
+                          <p type="text" className="form-control-static">
+                          {receiverInfo.receiverName}
+                          {receiverInfo.receiverProvince}
+                          {receiverInfo.receiverCity}
+                          {receiverInfo.receiverAddress}
+                          {receiverInfo.receiverMobile || receiverInfo.receiverPhone}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="form-group"><label htmlFor="subtitle" className="col-md-2 control-label">订单状态：</label>
+                        <div className="col-md-5">
+                          <p type="text" className="form-control-static">{this.state.orderInfo.statusDesc}</p>
+                        </div>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="subtitle" className="col-md-2 control-label">支付方式：</label>
+                          <div className="col-md-5">
+                              <p type="text" className="form-control-static">{this.state.orderInfo.paymentTypeDesc}</p>
+                          </div>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="subtitle" className="col-md-2 control-label">订单金额：</label>
+                          <div className="col-md-5">
+                              <p type="text" className="form-control-static">￥{this.state.orderInfo.payment}</p>
+                          </div>
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="subtitle" className="col-md-2 control-label">商品列表：</label>
+                          <div className="col-md-10">
+                              <TableList>
+                                
+                              </TableList>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                
             </div>
         );

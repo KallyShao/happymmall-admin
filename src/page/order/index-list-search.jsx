@@ -4,21 +4,9 @@ class ListSearch extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            searchType: 'productId', //productId || productName， 默认productId
-            searchKeyword: ''
+          orderNo: ''
         };
     }
-    // onGetSearchKeyword(e){
-    //     this.setState({
-    //         searchKeyword: e.target.value
-    //     })
-    // }
-    // onGetSearchType(e){
-    //     this.setState({
-    //         searchType: e.target.value
-    //     })
-    // }
-    //合并上面2个获取value的函数
     onGetValueChange(e){
         let searchName = e.target.name,
             searchValue = e.target.value.trim();
@@ -28,7 +16,7 @@ class ListSearch extends React.Component {
     }
     //点击搜索按钮
     onSearchSubmit(){
-        this.props.onSearch(this.state.searchType, this.state.searchKeyword); //?????????????
+        this.props.onSearch(this.state.orderNo); 
     }
     //按回车提交
     onSearchKeywordKeyup(e){
@@ -42,12 +30,12 @@ class ListSearch extends React.Component {
                <div className="col-md-12">
                    <div className="form-inline">
                        <div className="form-group">
-                           <select className="form-control" name="searchType" onChange = {(e) => this.onGetValueChange(e)}>
-                               <option value="orderNo">按订单号查询</option>
+                           <select className="form-control">
+                               <option value="">按订单号查询</option>
                            </select>
                        </div>
                        <div className="form-group">
-                           <input type="text" name="searchKeyword" className="form-control" placeholder="关键词"
+                           <input type="text" name="orderNo" className="form-control" placeholder="订单号"
                                   onChange = {(e) => this.onGetValueChange(e)}
                                   onKeyUp = {(e) => this.onSearchKeywordKeyup(e)}
                                   />
