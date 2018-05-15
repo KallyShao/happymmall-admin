@@ -27,6 +27,12 @@ class Order{
             data: orderNo
         })
     }
- 
+    sendGoods(orderNo){
+        return _mm.request({
+            type: 'post',
+            url: '/manage/order/send_goods.do',
+            data: orderNo
+        })
+    }
 }
 export default Order;

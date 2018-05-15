@@ -35,8 +35,9 @@ class OrderDetail extends React.Component{
     }
 
     render(){
-        let receiverInfo = this.state.orderInfo.shippingVo || {};
-        console.log(receiverInfo);
+        let receiverInfo = this.state.orderInfo.shippingVo || {},
+            proList = this.state.orderInfo.orderItemVoList || [],
+            tableHeads = ['商品图片', '商品信息', '单价', '数量', '合计'];
         return (
             <div id="page-wrapper">
                 <CommonTitle title="订单详情" />
@@ -70,6 +71,9 @@ class OrderDetail extends React.Component{
                       <div className="form-group"><label htmlFor="subtitle" className="col-md-2 control-label">订单状态：</label>
                         <div className="col-md-5">
                           <p type="text" className="form-control-static">{this.state.orderInfo.statusDesc}</p>
+                          {
+                            this.state.orderInfo.status === 20 ? <button className="btn btn-sm btn-default btn-send-goods">立即发货</button> : null
+                          }
                         </div>
                       </div>
                       <div className="form-group">
@@ -87,8 +91,24 @@ class OrderDetail extends React.Component{
                       <div className="form-group">
                           <label htmlFor="subtitle" className="col-md-2 control-label">商品列表：</label>
                           <div className="col-md-10">
-                              <TableList>
-                                
+                              <TableList tableHeads = {tableHeads}>
+                                {
+                                  proList.map((product, index) => {
+                                      return (
+                                              <tr key={index} className="pro-item">
+                                                  <td>
+                                                      <img src={`${this.state.orderInfo.imageHost}${product.productImage}`} alt={product.productName}/>
+                                                  </td>
+                                                  <td>
+                                                      <p>{product.productName}</p>
+                                                  </td>
+                                                  <td>￥{product.currentUnitPrice}</td>
+                                                  <td>{product.quantity}</td>
+                                                  <td>￥{product.totalPrice}</td>
+                                              </tr>
+                                          )
+                                      })
+                                }
                               </TableList>
                           </div>
                       </div>
